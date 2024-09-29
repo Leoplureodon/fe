@@ -1,9 +1,8 @@
 name: Deploy to GitHub Pages
 
 on:
-  push:
-    branches:
-      - main # Trigger deployment on changes to the main branch of the private repo
+  repository_dispatch:
+    types: [trigger-deploy] # Listen for the custom dispatch event
   workflow_dispatch:
 
 jobs:
@@ -14,15 +13,15 @@ jobs:
       - name: Checkout public repo
         uses: actions/checkout@v2
         with:
-          repository: leoplureodon/fe # Public repo for GitHub Pages
+          repository: leoplureodon/fe
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Checkout private repo
         uses: actions/checkout@v2
         with:
-          repository: leoplureodon/leoplureodon-dev # Private repo with source code
+          repository: leoplureodon/leoplureodon-dev
           token: ${{ secrets.GITHUB_TOKEN }}
-          path: private-repo # Path to the directory where private repo will be checked out
+          path: private-repo
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -31,23 +30,19 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd private-repo  # Navigate to the private repo folder
+          cd private-repo
           npm install
 
       - name: Build React app
         run: |
-          cd private-repo  # Navigate to the private repo folder
-          npm run build  # Build the React app to the 'build' directory
-
-      - name: List build directory contents
-        run: |
-          ls private-repo/build  # Check if build files are correctly generated
+          cd private-repo
+          npm run build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           personal_token: ${{ secrets.GITHUB_TOKEN }}
-          destination_dir: private-repo/build # Path to the build directory from the private repo
-          branch: gh-pages # The branch where files will be pushed
-          repository: leoplureodon/fe # The public repo where files will be deployed
-          clean: true # Clean up the previous build files before pushing new ones
+          destination_dir: private-repo/build
+          branch: gh-pages
+          repository: leoplureodon/fe
+          clean: true
