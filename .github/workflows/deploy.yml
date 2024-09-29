@@ -34,7 +34,7 @@ jobs:
       - name: Install dependencies
         run: |
           cd private-repo
-          npm ci --legacy-peer-deps
+          npm install
 
       - name: Build React app
         env:
