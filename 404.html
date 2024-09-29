@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Redirecting...</title>
+    <script type="text/javascript">
+      // Capture the current path (after /leoplureodon-dev/)
+      var path = window.location.pathname.replace("/leoplureodon-dev", "");
+      if (path) {
+        // Store the path in sessionStorage
+        sessionStorage.setItem("redirectPath", path);
+      }
+      // Redirect to the index.html to let React Router handle it
+      window.location.href = "/leoplureodon-dev/";
+    </script>
+  </head>
+  <body>
+    Redirecting...
+  </body>
+</html>
