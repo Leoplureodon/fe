@@ -36,11 +36,6 @@ jobs:
           cd private-repo
           npm ci --legacy-peer-deps
 
-      - name: List directory contents
-        run: |
-          cd private-repo
-          ls -R
-
       - name: Build React app
         env:
           REACT_APP_API_ADDRESS: ${{ secrets.REACT_APP_API_ADDRESS }}
