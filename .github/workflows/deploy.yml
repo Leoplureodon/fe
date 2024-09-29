@@ -49,7 +49,9 @@ jobs:
         run: |
           git worktree prune
           git worktree list
-          git worktree remove github-pages-deploy-action-temp-deployment-folder --force || true
+          if [ -d "github-pages-deploy-action-temp-deployment-folder" ]; then
+            git worktree remove github-pages-deploy-action-temp-deployment-folder --force
+          fi
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
