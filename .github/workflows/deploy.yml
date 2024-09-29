@@ -28,15 +28,32 @@ jobs:
         with:
           node-version: "20"
 
+      - name: Upgrade npm
+        run: npm install -g npm@latest
+
       - name: Install dependencies
         run: |
           cd private-repo
-          npm install
+          npm ci --legacy-peer-deps
 
-      - name: Build React app
+      - name: List directory contents
         run: |
           cd private-repo
-          npm run build
+          ls -R
+
+      - name: Build React app
+        env:
+          REACT_APP_API_ADDRESS: ${{ secrets.REACT_APP_API_ADDRESS }}
+          CI: false # Don't treat warnings as errors
+        run: |
+          cd private-repo
+          npm run build --verbose
+
+      - name: Clean up existing worktrees
+        run: |
+          git worktree prune
+          git worktree list
+          git worktree remove github-pages-deploy-action-temp-deployment-folder --force || true
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
