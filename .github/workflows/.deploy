@@ -44,4 +44,4 @@ jobs:
           personal_token: ${{ secrets.GITHUB_TOKEN }}
           destination_dir: private-repo/build # Point to the build directory from the private repo
           branch: gh-pages
-          repository: yourusername/your-public-gh-pages-repo # Public repo for GitHub Pages
+          repository: leoplureodon/fe # Public repo for GitHub Pages
