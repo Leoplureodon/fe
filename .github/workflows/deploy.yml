@@ -57,5 +57,5 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          publish_dir: private-repo/build
+          publish_dir: private-repo/dist
           publish_branch: gh-pages
