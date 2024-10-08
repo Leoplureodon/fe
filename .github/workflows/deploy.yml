@@ -39,7 +39,8 @@ jobs:
 
       - name: Build React app
         env:
-          REACT_APP_API_ADDRESS: ${{ secrets.VITE_SOME_KEY }}
+          VITE_API_ADDRESS: ${{ secrets.VITE_API_ADDRESS }}
+          VITE_SOME_KEY: ${{ secrets.VITE_SOME_KEY }}
           CI: false # Don't treat warnings as errors
         run: |
           cd private-repo
